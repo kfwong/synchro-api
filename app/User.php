@@ -2,25 +2,29 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $fillable = [];
 
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $hidden = [];
+
+    public function getModulesTakenAttribute($value){
+        return json_decode($value);
+    }
+
+    public function setModulesTakenAttribute($value){
+        $this->attributes['modules_taken']=json_encode(json_decode($value)->Results);
+    }
 }
