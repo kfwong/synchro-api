@@ -12,3 +12,14 @@
 */
 
 Route::get('a', 'UserController@a');
+Route::group(['prefix' => '/api/v1'], function(){
+
+    // users
+    Route::resource('users', 'UserController', ['only' => ['index', 'store', 'show', 'update', 'destroy' ]]);
+    Route::get('users/{id}/groups', 'UserController@groups');
+
+    // groups
+    Route::resource('groups', 'GroupController', ['only' => ['index', 'store', 'show', 'update', 'destroy' ]]);
+    Route::get('groups/{id}/users', 'GroupController@users');
+});
+

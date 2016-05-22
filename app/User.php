@@ -20,6 +20,10 @@ class User extends Model
      */
     protected $hidden = [];
 
+    public function groups(){
+        return $this->belongsToMany('App\Group');
+    }
+
     public function getModulesTakenAttribute($value){
         return json_decode($value);
     }
@@ -27,4 +31,5 @@ class User extends Model
     public function setModulesTakenAttribute($value){
         $this->attributes['modules_taken']=json_encode(json_decode($value)->Results);
     }
+
 }
