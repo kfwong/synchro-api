@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4907450d22e28de1eb626aaec2df5df4",
-    "content-hash": "4fbb884b64ddbf4daa8448abc0fa44d5",
+    "hash": "a4eebe62037e64c3aa216f3e537673b9",
+    "content-hash": "d2b86dc45fcedb7d1079dcc3ef6633ad",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -310,54 +310,6 @@
                 }
             ],
             "time": "2015-04-20 18:58:01"
-        },
-        {
-            "name": "jenssegers/model",
-            "version": "v1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jenssegers/model.git",
-                "reference": "9a5427ec506fb206f3a5ba5871bdf5669a4b84bf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jenssegers/model/zipball/9a5427ec506fb206f3a5ba5871bdf5669a4b84bf",
-                "reference": "9a5427ec506fb206f3a5ba5871bdf5669a4b84bf",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "^5.0",
-                "illuminate/support": "^4.0|^5.0",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.0|^5.0",
-                "satooshi/php-coveralls": "^0.6"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Jenssegers\\Model\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jens Segers",
-                    "homepage": "https://jenssegers.com"
-                }
-            ],
-            "description": "An Laravel eloquent-like model class, for Laravel and other frameworks",
-            "homepage": "https://github.com/jenssegers/model",
-            "keywords": [
-                "eloquent",
-                "laravel",
-                "model"
-            ],
-            "time": "2015-12-28 14:03:27"
         },
         {
             "name": "jeremeamia/SuperClosure",

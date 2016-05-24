@@ -9,12 +9,8 @@ use App\Http\Requests;
 
 class UserController extends Controller
 {
-    public function a(){
-        return User::all()->first();
-    }
-
     public function index(){
-
+        return User::all();
     }
 
     public function store(){
@@ -22,7 +18,7 @@ class UserController extends Controller
     }
 
     public function show($user_id){
-
+        return User::find($user_id);
     }
 
     public function update($user_id){
@@ -31,5 +27,9 @@ class UserController extends Controller
 
     public function destroy($user_id){
 
+    }
+
+    public function groups($user_id){
+        return User::find($user_id)->groups;
     }
 }

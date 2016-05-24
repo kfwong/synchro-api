@@ -22,4 +22,3 @@ Route::group(['prefix' => '/api/v1'], function(){
     Route::resource('groups', 'GroupController', ['only' => ['index', 'store', 'show', 'update', 'destroy' ]]);
     Route::get('groups/{id}/users', 'GroupController@users');
 });
-
