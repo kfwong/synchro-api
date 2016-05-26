@@ -19,6 +19,7 @@ Route::group([
     // users
     Route::resource('users', 'UserController', ['only' => ['index', 'store', 'show', 'update', 'destroy' ]]);
     Route::get('users/{id}/groups', 'UserController@groups');
+    Route::get('me', 'UserController@me');
 
     // groups
     Route::resource('groups', 'GroupController', ['only' => ['index', 'store', 'show', 'update', 'destroy' ]]);

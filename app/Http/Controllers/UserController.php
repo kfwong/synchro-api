@@ -32,4 +32,10 @@ class UserController extends Controller
     public function groups($user_id){
         return User::find($user_id)->groups;
     }
+
+    public function me(Request $request){
+        $ivle_id = $request->session()->get("ivle_id");
+
+        return User::where('ivle_id', $ivle_id)->first();
+    }
 }
