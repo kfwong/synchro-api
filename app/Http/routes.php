@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('a', 'UserController@a');
-Route::group(['prefix' => '/api/v1'], function(){
+Route::group([
+    'prefix' => '/api/v1',
+    'middleware' => 'auth.token.ivle',
+], function(){
 
     // users
     Route::resource('users', 'UserController', ['only' => ['index', 'store', 'show', 'update', 'destroy' ]]);
