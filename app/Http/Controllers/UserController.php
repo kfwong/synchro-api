@@ -33,9 +33,17 @@ class UserController extends Controller
         return User::find($user_id)->groups;
     }
 
+    // return current authenticated user profile
     public function me(Request $request){
         $ivle_id = $request->session()->get("ivle_id");
 
         return User::where('ivle_id', $ivle_id)->first();
+    }
+
+    // return groups that belong to the current authenticated user
+    public function meGroups(Request $request){
+        $ivle_id = $request->session()->get("ivle_id");
+
+        return User::where('ivle_id', $ivle_id)->first()->groups;
     }
 }

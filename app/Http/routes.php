@@ -19,9 +19,16 @@ Route::group([
     // users
     Route::resource('users', 'UserController', ['only' => ['index', 'store', 'show', 'update', 'destroy' ]]);
     Route::get('users/{id}/groups', 'UserController@groups');
-    Route::get('me', 'UserController@me');
 
     // groups
     Route::resource('groups', 'GroupController', ['only' => ['index', 'store', 'show', 'update', 'destroy' ]]);
     Route::get('groups/{id}/users', 'GroupController@users');
+
+    // current authenticated user
+    Route::group([
+        'prefix' => '/me',
+    ], function(){
+        Route::get('/', 'UserController@me');
+        Route::get('groups', 'UserController@meGroups');
+    });
 });

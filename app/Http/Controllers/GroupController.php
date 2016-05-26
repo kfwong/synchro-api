@@ -32,4 +32,5 @@ class GroupController extends Controller
     public function users($group_id){
         return Group::find($group_id)->users;
     }
+
 }
