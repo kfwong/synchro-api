@@ -11,7 +11,20 @@ class User extends Model
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'ivle_id',
+        'email',
+        'gender',
+        'faculty',
+        'first_major',
+        'second_major',
+        'matriculation_year',
+        'modules_taken',
+        'time_table',
+        'last_seen_at',
+        'last_sync_at'
+    ];
 
     /**
      * The attributes that should be hidden for arrays.

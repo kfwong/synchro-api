@@ -26,7 +26,7 @@ class VerifyIVLEToken
                 'APIKey' => getenv('IVLE_API_KEY'),
                 'Token' => $token
             ]
-        ];
+        ];https://ivle.nus.edu.sg/api/Lapi.svc/Profile_View
 
         $res_ivle_token_validate = $client->get("https://ivle.nus.edu.sg/api/Lapi.svc/Validate", $options);
 

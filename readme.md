@@ -11,6 +11,7 @@ Synchro API make use of [IVLE LAPI](https://wiki.nus.edu.sg/display/ivlelapi/Sum
 **All endpoints are required to set the IVLE Token in the HTTP Authorization Header**
 
 ```yaml
+HTTP/1.1
 Authorization: {Token Value}
 ```
 
@@ -30,3 +31,4 @@ Authorization: {Token Value}
  api/v1/users/{user_id} | DELETE | Delete a User record ||
  api/v1/me | GET | Retrieve current authenticated User ||
  api/v1/me/groups | GET | Retrieve list of Groups that current authenticated User belongs to ||
+ api/v1/me/resync | GET | Resynchronize & cache current user info from IVLE ||
