@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGroupUserTable extends Migration
+class CreateGroupTagTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,21 +12,20 @@ class CreateGroupUserTable extends Migration
      */
     public function up()
     {
-        // pivot table
-        // naming convention: in singular, alphabetical order
-        Schema::create('group_user', function (Blueprint $table) {
+
+        Schema::create('group_tag', function(Blueprint $table){
             $table->unsignedInteger('group_id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('tag_id');
 
             $table->foreign('group_id')
                 ->references('id')
                 ->on('groups');
 
-            $table->foreign('user_id')
+            $table->foreign('tag_id')
                 ->references('id')
-                ->on('users');
+                ->on('tags');
 
-            $table->unique(['group_id', 'user_id']);
+            $table->unique(['group_id', 'tag_id']);
         });
     }
 
@@ -38,7 +37,7 @@ class CreateGroupUserTable extends Migration
     public function down()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0'); // disable foreign key constraints
-        Schema::drop('group_user');
+        Schema::drop('group_tag');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // enable foreign key constraints
     }
 }

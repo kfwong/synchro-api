@@ -23,6 +23,7 @@ Authorization: {Token Value}
  X | api/v1/groups/{group_id} | PUT | Update a Group by id ||
  X | api/v1/groups/{group_id} | DELETE | Delete a Group by id ||
  O | api/v1/groups/{group_id}/users | GET | Retrieve all users belongs to a specific Group ||
+ O | api/v1/groups/{group_id}/tags | GET | Retrieve all tags belongs to a specific Group ||
  O | api/v1/users | GET | Retrieve list of Users ||
  X | api/v1/users | POST | Create a User ||
  O | api/v1/users/{user_id}/groups | GET | Retrieve list of Groups a particular User belongs to ||

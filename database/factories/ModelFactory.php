@@ -31,6 +31,11 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Group::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
-        'tags' => ''
+    ];
+});
+
+$factory->define(App\Tag::class, function (Faker\Generator $faker){
+    return [
+        'name' => $faker->word
     ];
 });

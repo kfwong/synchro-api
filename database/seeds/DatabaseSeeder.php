@@ -19,10 +19,15 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->truncate();
         DB::table('groups')->truncate();
         DB::table('group_user')->truncate();
+        DB::table('tags')->truncate();
+        DB::table('group_tag')->truncate();
+
 
         $this->call('UserTableSeeder');
         $this->call('GroupTableSeeder');
         $this->call('GroupUserTableSeeder');
+        $this->call('TagTableSeeder');
+        $this->call('GroupTagTableSeeder');
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // enable foreign key constraints
 

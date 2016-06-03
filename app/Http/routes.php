@@ -13,7 +13,7 @@
 
 Route::group([
     'prefix' => '/api/v1',
-    'middleware' => 'auth.token.ivle',
+    'middleware' => 'api',
 ], function(){
 
     // users
@@ -23,6 +23,7 @@ Route::group([
     // groups
     Route::resource('groups', 'GroupController', ['only' => ['index', 'store', 'show', 'update', 'destroy' ]]);
     Route::get('groups/{id}/users', 'GroupController@users');
+    Route::get('groups/{id}/tags', 'GroupController@tags');
 
     // current authenticated user
     Route::group([

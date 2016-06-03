@@ -11,7 +11,10 @@ class Group extends Model
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'tags'
+    ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -22,5 +25,9 @@ class Group extends Model
 
     public function users(){
         return $this->belongsToMany('App\User');
+    }
+
+    public function tags(){
+        return $this->belongsToMany('App\Tag');
     }
 }
