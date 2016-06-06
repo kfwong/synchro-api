@@ -32,4 +32,5 @@ Authorization: {Token Value}
  X | api/v1/users/{user_id} | DELETE | Delete a User record ||
  O | api/v1/me | GET | Retrieve current authenticated User ||
  O | api/v1/me/groups | GET | Retrieve list of Groups that current authenticated User belongs to ||
+ O | api/v1/me/modulesTaken | GET | Retrieve list of Modules that current authenticated User has taken ||
  O | api/v1/me/resync | GET | Resynchronize & cache current user info from IVLE ||
