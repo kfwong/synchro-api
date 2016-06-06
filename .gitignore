@@ -7,3 +7,5 @@ Homestead.json
 _ide_helper.php
 .phpstorm.meta.php
 .idea/workspace.xml
+.idea/dataSources.ids
+.idea/dataSources.xml

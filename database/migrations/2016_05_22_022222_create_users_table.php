@@ -22,8 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('first_major');
             $table->string('second_major');
             $table->string('matriculation_year');
-            $table->text('modules_taken'); // json
-            $table->text('timetable'); // json
             $table->dateTime('last_seen_at');
             $table->dateTime('last_sync_at');
             $table->timestamps();

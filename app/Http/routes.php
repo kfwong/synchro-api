@@ -31,6 +31,7 @@ Route::group([
     ], function(){
         Route::get('/', 'UserController@me');
         Route::get('groups', 'UserController@meGroups');
+        Route::get('modulesTaken', 'UserController@meModulesTaken');
         Route::get('resync', 'UserController@meResync');
     });
 });
