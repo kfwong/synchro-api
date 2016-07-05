@@ -20,24 +20,9 @@ class UserController extends Controller
         return User::all();
     }
 
-    public function store()
-    {
-
-    }
-
     public function show($user_id)
     {
         return User::find($user_id);
-    }
-
-    public function update($user_id)
-    {
-
-    }
-
-    public function destroy($user_id)
-    {
-
     }
 
     public function groups($user_id)
