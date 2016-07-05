@@ -17,11 +17,11 @@ Route::group([
 ], function(){
 
     // users
-    Route::resource('users', 'UserController', ['only' => ['index', 'store', 'show', 'update', 'destroy' ]]);
+    Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
     Route::get('users/{id}/groups', 'UserController@groups');
 
     // groups
-    Route::resource('groups', 'GroupController', ['only' => ['index', 'store', 'show', 'update', 'destroy' ]]);
+    Route::resource('groups', 'GroupController', ['only' => ['index', 'store', 'show', 'update' ]]);
     Route::get('groups/{id}/users', 'GroupController@users');
     Route::get('groups/{id}/tags', 'GroupController@tags');
 
@@ -31,6 +31,8 @@ Route::group([
     ], function(){
         Route::get('/', 'UserController@me');
         Route::get('groups', 'UserController@meGroups');
+        Route::post('groups/{id}/join', 'UserController@meJoinGroup');
+        Route::post('groups/{id}/leave', 'UserController@meLeaveGroup');
         Route::get('modulesTaken', 'UserController@meModulesTaken');
         Route::get('resync', 'UserController@meResync');
     });
