@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Group;
 use App\Tag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
 
 use App\Http\Requests;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Input;
 
 class GroupController extends Controller
 {
@@ -16,26 +18,29 @@ class GroupController extends Controller
         return Group::with("tags")->get();
     }
 
-    public function store(Request $request){
+    public function store(){
 
         try {
             DB::beginTransaction();
 
             $group = new Group();
-
-            $group->name = $request->name;
+            $group->name =Input::get('name');
+            $group->type = Input::get('type');
+            $group->description = Input::get('description');
+            $group->date_happening = Carbon::parse(Input::get('date_happening'));
+            $group->venue = Input::get('venue');
 
             $group->save();
 
+            $tags_raw = explode(" ", Input::get('tags')); // client send in string format, seperated by spaces
+
             $tags = [];
 
-            foreach ($request->tags as $tag_name) {
+            foreach ($tags_raw as $tag_raw) {
                 // check if tag with the same name already exists
-                $tag_obj = Tag::firstOrNew(['name' => $tag_name]);
+                $tag = Tag::firstOrNew(['name' => $tag_raw]);
 
-                $tag_obj->name = $tag_name;
-
-                array_push($tags, $tag_obj);
+                array_push($tags, $tag);
             }
 
             $group->tags()->saveMany($tags);
@@ -47,7 +52,8 @@ class GroupController extends Controller
         }
 
         return \Response::json([
-            'message' => 'Group created.'
+            'message' => 'Group created.',
+            'id' => $group->id
         ], Response::HTTP_CREATED, []);
 
     }
@@ -56,24 +62,24 @@ class GroupController extends Controller
         return Group::with("tags")->where('id', $group_id)->first();
     }
 
-    public function update($group_id, Request $request){
+    public function update($group_id){
         try {
             DB::beginTransaction();
             $group = Group::findOrFail($group_id);
 
-            $group->name = $request->name;
+            $group->name = Input::get('name');
 
             $group->save();
 
+            $tags_raw = explode(" ", Input::get('tags')); // client send in string format, seperated by spaces
+
             $tags = [];
 
-            foreach ($request->tags as $tag_name) {
+            foreach ($tags_raw as $tag_raw) {
                 // check if tag with the same name already exists
-                $tag_obj = Tag::firstOrNew(['name' => $tag_name]);
+                $tag = Tag::firstOrNew(['name' => $tag_raw]);
 
-                $tag_obj->name = $tag_name;
-
-                array_push($tags, $tag_obj);
+                array_push($tags, $tag);
             }
 
             // detach all children from many to many relationship
@@ -92,6 +98,25 @@ class GroupController extends Controller
         return \Response::json([
             'message' => 'Group updated.'
         ], Response::HTTP_OK, []);
+
+    }
+
+    public function search(){
+
+        // name, tags
+        // combination logic: OR, AND?
+        $name = explode(' ', Input::get('name'));
+
+        return Group::with(array('tags' => function($query){
+            $tags = explode(' ', Input::get('tags'));
+
+            foreach($tags as $tag){
+                $query->orWhere('name', '=', $tag);
+            }
+
+        }))
+            ->orWhere('name', 'LIKE', $name)
+            ->get();
 
     }
 

@@ -21,6 +21,7 @@ Route::group([
     Route::get('users/{id}/groups', 'UserController@groups');
 
     // groups
+    Route::get('groups/search', 'GroupController@search');
     Route::resource('groups', 'GroupController', ['only' => ['index', 'store', 'show', 'update' ]]);
     Route::get('groups/{id}/users', 'GroupController@users');
     Route::get('groups/{id}/tags', 'GroupController@tags');
@@ -36,4 +37,5 @@ Route::group([
         Route::get('modulesTaken', 'UserController@meModulesTaken');
         Route::get('resync', 'UserController@meResync');
     });
+
 });
