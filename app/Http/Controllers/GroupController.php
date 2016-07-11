@@ -15,7 +15,18 @@ use Illuminate\Support\Facades\Input;
 class GroupController extends Controller
 {
     public function index(){
-        return Group::with("tags")->get();
+
+        $groups = Group::with("tags")->get()->transform(function($group, $group_key){
+
+            $group->tags->transform(function($tag, $tag_key){
+                return $tag->name;
+            });
+
+            return $group;
+        })->all();
+
+        return $groups;
+
     }
 
     public function store(){
@@ -59,7 +70,14 @@ class GroupController extends Controller
     }
 
     public function show($group_id){
-        return Group::with("tags")->where('id', $group_id)->first();
+        return Group::with("tags")->where('id', $group_id)->get()->transform(function($group, $group_key){
+
+            $group->tags->transform(function($tag, $tag_key){
+                return $tag->name;
+            });
+
+            return $group;
+        })->first();
     }
 
     public function update($group_id){

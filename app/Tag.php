@@ -10,6 +10,13 @@ class Tag extends Model
         'name'
     ];
 
+    protected $hidden = [
+        'id',
+        'created_at',
+        'updated_at',
+        'pivot'
+    ];
+
     public function groups(){
         return $this->belongsToMany('App\Group');
     }

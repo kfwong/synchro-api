@@ -24,7 +24,7 @@ class Group extends Model
     protected $hidden = [];
 
     public function users(){
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User')->withPivot('is_admin');
     }
 
     public function tags(){

@@ -22,14 +22,16 @@ class GroupUserTableSeeder extends Seeder
         foreach(range(1, 60) as $index){
             $groupId = $fake->randomElement($groupIds);
             $userId = $fake->randomElement($userIds);
+            $isAdmin = $fake->boolean();
 
             // http://stackoverflow.com/questions/31624473/laravel-5-1-create-or-update-on-duplicate
             DB::table('group_user')->updateOrInsert([
                 'group_id' => $groupId,
-                'user_id' => $userId
+                'user_id' => $userId,
             ],[
                 'group_id' => $groupId,
-                'user_id' => $userId
+                'user_id' => $userId,
+                'is_admin' => $isAdmin
             ]);
         }
     }
