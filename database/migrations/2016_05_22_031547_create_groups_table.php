@@ -20,6 +20,7 @@ class CreateGroupsTable extends Migration
             $table->dateTime('date_happening'); //yyyy-MM-dd HH:mm:ss
             $table->string('venue');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

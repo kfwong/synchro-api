@@ -30,6 +30,13 @@ class UserController extends Controller
         return User::find($user_id)->groups;
     }
 
+    public function modulesTaken($user_id){
+        // Laravel Eloquent Eager Loading
+        // the relation model will be embedded into the result with a single call
+        // https://laravel.com/docs/5.0/eloquent#eager-loading
+        return User::with('modulesTaken.module')->where('id', $user_id)->first()->modulesTaken;
+    }
+
     // return current authenticated user profile
     public function me(Request $request)
     {

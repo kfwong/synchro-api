@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Group extends Model
 {
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
@@ -22,6 +24,8 @@ class Group extends Model
      * @var array
      */
     protected $hidden = [];
+
+    protected $dates = ['deleted_at'];
 
     public function users(){
         return $this->belongsToMany('App\User')->withPivot('is_admin');

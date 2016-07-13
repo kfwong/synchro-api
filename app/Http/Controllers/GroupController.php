@@ -119,6 +119,14 @@ class GroupController extends Controller
 
     }
 
+    public function destroy($group_id){
+        Group::destroy($group_id);
+
+        return \Response::json([
+            'message' => 'Group ' . $group_id . ' has been deleted.'
+        ], Response::HTTP_OK, []);
+    }
+
     public function search(){
 
         // name, tags
