@@ -129,10 +129,17 @@ class GroupController extends Controller
 
     public function search(){
 
-        // name, tags
-        // combination logic: OR, AND?
-        $name = explode(' ', Input::get('name'));
+        /*
+        $query = DB::table('groups')->join('groups', 'groups.id', '=', 'group_tag.group_id')
+            ->join('tags', 'tags.id', '=', 'group_tag.tag_id');
 
+        $query = Input::has('name')? $query->whereIn('groups.name', explode(' ', Input::get('name'))): $query;
+
+        $query = Input::has('tags')? $query->orWhereIn('tags.name', explode(' ', Input::get('tags'))): $query;
+
+        return $query->get();
+        */
+        /*
         return Group::with(array('tags' => function($query){
             $tags = explode(' ', Input::get('tags'));
 
@@ -142,6 +149,16 @@ class GroupController extends Controller
 
         }))
             ->orWhere('name', 'LIKE', $name)
+            ->get();
+        */
+
+        return Group::with('tags')
+            ->whereIn('groups.name', explode(' ', Input::get('name')))
+            ->orWhere(function($subQuery){
+                $subQuery->whereHas('tags', function($query){
+                    $query->whereIn('name', explode(' ', Input::get('tags')));
+                });
+            })
             ->get();
 
     }

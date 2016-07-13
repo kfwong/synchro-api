@@ -24,6 +24,7 @@ Authorization: {Token Value}
  O | [api/v1/groups/{group_id}](#delete-apiv1groupsgroups_id) | DELETE | Delete a Group by id (soft delete)
  O | [api/v1/groups/{group_id}/users](#get-apiv1groupsgroups_idusers) | GET | Retrieve all users belongs to a specific Group
  X | [api/v1/groups/{group_id}/tags](#get-apiv1groupsgroups_idtags) | GET | Retrieve all tags belongs to a specific Group
+ O | [api/v1/groups/search?{name&#124;tags}](#get-apiv1groupssearchnametags) | GET | Search group by name or tags
  O | [api/v1/users](#get-apiv1users) | GET | Retrieve list of Users
  O | [api/v1/users/{user_id}](#get-apiv1usersuser_id) | GET | Retrieve a User profile
  O | [api/v1/users/{user_id}/groups](#get-apiv1usersuser_idgroups) | GET | Retrieve list of Groups a particular User belongs to
@@ -268,6 +269,229 @@ Retrieve all tags belongs to a specific Group
 
 //TODO: to be updated
 
+---
+
+### GET api/v1/groups/search?{name|tags}
+Search group by name or tags. Note that you can choose either, or both keys in the request parameters. All combinations (keys and values) uses OR operation.
+
+eg:
+```HTTP
+api/v1/groups/search?name=tempora et qui
+api/v1/groups/search?tags=esse magni
+api/v1/groups/search?name=tempora et qui&tags=esse magni
+```
+
+**Request Parameters:**
+
+URL:
+
+{name}: name of the group
+
+{tags}: tags associated with the group
+
+**Response:**
+
+HTTP 200 OK
+
+- api/v1/groups/search?name=tempora et qui
+```json
+[
+  {
+    "id": 2,
+    "name": "qui",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "created_at": "2016-07-12 15:37:44",
+    "updated_at": "2016-07-12 15:37:44",
+    "deleted_at": null,
+    "tags": [
+      {
+        "name": "id"
+      },
+      {
+        "name": "voluptatem"
+      },
+      {
+        "name": "dignissimos"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "name": "tempora",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "created_at": "2016-07-12 15:37:45",
+    "updated_at": "2016-07-12 15:37:45",
+    "deleted_at": null,
+    "tags": [
+      {
+        "name": "quis"
+      },
+      {
+        "name": "atque"
+      },
+      {
+        "name": "cupiditate"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "name": "et",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "created_at": "2016-07-12 15:37:45",
+    "updated_at": "2016-07-12 15:37:45",
+    "deleted_at": null,
+    "tags": []
+  }
+]
+```
+
+- api/v1/groups/search?tags=esse magni
+```json
+[
+  {
+    "id": 4,
+    "name": "voluptas",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "created_at": "2016-07-12 15:37:44",
+    "updated_at": "2016-07-12 15:37:44",
+    "deleted_at": null,
+    "tags": [
+      {
+        "name": "esse"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "sapiente",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "created_at": "2016-07-12 15:37:44",
+    "updated_at": "2016-07-12 15:37:44",
+    "deleted_at": null,
+    "tags": [
+      {
+        "name": "sint"
+      },
+      {
+        "name": "magni"
+      }
+    ]
+  }
+]
+```
+
+- api/v1/groups/search?name=tempora et qui&tags=esse magni
+```json
+[
+  {
+    "id": 2,
+    "name": "qui",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "created_at": "2016-07-12 15:37:44",
+    "updated_at": "2016-07-12 15:37:44",
+    "deleted_at": null,
+    "tags": [
+      {
+        "name": "id"
+      },
+      {
+        "name": "voluptatem"
+      },
+      {
+        "name": "dignissimos"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "voluptas",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "created_at": "2016-07-12 15:37:44",
+    "updated_at": "2016-07-12 15:37:44",
+    "deleted_at": null,
+    "tags": [
+      {
+        "name": "esse"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "sapiente",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "created_at": "2016-07-12 15:37:44",
+    "updated_at": "2016-07-12 15:37:44",
+    "deleted_at": null,
+    "tags": [
+      {
+        "name": "sint"
+      },
+      {
+        "name": "magni"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "name": "tempora",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "created_at": "2016-07-12 15:37:45",
+    "updated_at": "2016-07-12 15:37:45",
+    "deleted_at": null,
+    "tags": [
+      {
+        "name": "quis"
+      },
+      {
+        "name": "atque"
+      },
+      {
+        "name": "cupiditate"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "name": "et",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "created_at": "2016-07-12 15:37:45",
+    "updated_at": "2016-07-12 15:37:45",
+    "deleted_at": null,
+    "tags": []
+  }
+]
+```
 ---
 
 ### GET api/v1/users
