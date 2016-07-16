@@ -50,7 +50,14 @@ class UserController extends Controller
     {
         $ivle_id = $request->session()->get("ivle_id");
 
-        return User::where('ivle_id', $ivle_id)->first()->groups;
+        return User::with('groups.tags')->where('ivle_id', $ivle_id)->first()->groups->transform(function($group, $group_key){
+
+            $group->tags->transform(function($tag, $tag_key){
+                return $tag->name;
+            });
+
+            return $group;
+        });
     }
 
     public function meJoinGroup($group_id, Request $request){
