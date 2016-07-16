@@ -129,37 +129,23 @@ class GroupController extends Controller
 
     public function search(){
 
-        /*
-        $query = DB::table('groups')->join('groups', 'groups.id', '=', 'group_tag.group_id')
-            ->join('tags', 'tags.id', '=', 'group_tag.tag_id');
+        $name = Input::get('name');
+        $tags = Input::get('tags');
 
-        $query = Input::has('name')? $query->whereIn('groups.name', explode(' ', Input::get('name'))): $query;
+        $q = Group::with('tags');
 
-        $query = Input::has('tags')? $query->orWhereIn('tags.name', explode(' ', Input::get('tags'))): $query;
 
-        return $query->get();
-        */
-        /*
-        return Group::with(array('tags' => function($query){
-            $tags = explode(' ', Input::get('tags'));
-
-            foreach($tags as $tag){
-                $query->orWhere('name', '=', $tag);
+        $q = !empty($name)? $q->orWhere(function($subQuery) use ($name){
+            foreach(explode(' ', $name) as $n){
+                $subQuery->orWhere('groups.name', 'LIKE', '%'.$n.'%');
             }
-
-        }))
-            ->orWhere('name', 'LIKE', $name)
-            ->get();
-        */
-
-        return Group::with('tags')
-            ->whereIn('groups.name', explode(' ', Input::get('name')))
-            ->orWhere(function($subQuery){
+        }): $q;
+        $q = !empty($tags)? $q->orWhere(function($subQuery){
                 $subQuery->whereHas('tags', function($query){
                     $query->whereIn('name', explode(' ', Input::get('tags')));
                 });
-            })
-            ->get();
+            }): $q;
+        return $q->get();
 
     }
 
