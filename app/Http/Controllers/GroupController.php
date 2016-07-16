@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Group;
 use App\Tag;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
@@ -29,7 +30,7 @@ class GroupController extends Controller
 
     }
 
-    public function store(){
+    public function store(Request $request){
 
         try {
             DB::beginTransaction();
@@ -55,6 +56,17 @@ class GroupController extends Controller
             }
 
             $group->tags()->saveMany($tags);
+
+            // auto make creator join the group as admin
+
+            $ivle_id = $request->session()->get("ivle_id");
+
+            $me = User::where('ivle_id', $ivle_id)->first();
+
+            $me->groups()->attach($group->id, [
+                'is_admin' => true
+            ]);
+
             DB::commit();
 
         }catch (\Exception $ex){

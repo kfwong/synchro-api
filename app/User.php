@@ -34,7 +34,7 @@ class User extends Model
     protected $hidden = [];
 
     public function groups(){
-        return $this->belongsToMany('App\Group');
+        return $this->belongsToMany('App\Group')->withPivot('is_admin');
     }
 
     public function modulesTaken(){
