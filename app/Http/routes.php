@@ -19,6 +19,7 @@ Route::group([
     // users
     Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
     Route::get('users/{id}/groups', 'UserController@groups');
+    Route::get('users/{id}/groups/recommends', 'UserController@groupRecommends');
     Route::get('users/{id}/modulesTaken', 'UserController@modulesTaken');
 
     // groups

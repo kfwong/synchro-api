@@ -3,40 +3,56 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\Http\Requests;
 use App\Tag;
 use App\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use DB;
-
-use App\Http\Requests;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
 
 class GroupController extends Controller
 {
-    public function index(){
+    public function index(Request $request)
+    {
+        $ivle_id = $request->session()->get("ivle_id");
 
-        $groups = Group::with("tags")->get()->transform(function($group, $group_key){
+        $groups = Group::with(["tags", "users"])
+            ->get()
+            ->map(function($group, $group_key) use ($ivle_id){
+                $users =  $group->users;
+                foreach($users as $user){
+                    if($user->ivle_id == $ivle_id){
+                        $group->current_logged_in_user_has_joined = true;
+                        return $group;
+                    }
+                }
+                $group->current_logged_in_user_has_joined = false;
+                return $group;
+            })
+            ->transform(function ($group, $group_key) {
+                $group->tags->transform(function ($tag, $tag_key) {
+                    return $tag->name;
+                });
 
-            $group->tags->transform(function($tag, $tag_key){
-                return $tag->name;
-            });
-
-            return $group;
-        })->all();
+                return $group;
+            })
+            ->values()
+            ->all();
 
         return $groups;
 
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         try {
             DB::beginTransaction();
 
             $group = new Group();
-            $group->name =Input::get('name');
+            $group->name = Input::get('name');
             $group->type = Input::get('type');
             $group->description = Input::get('description');
             $group->date_happening = Carbon::parse(Input::get('date_happening'));
@@ -69,7 +85,7 @@ class GroupController extends Controller
 
             DB::commit();
 
-        }catch (\Exception $ex){
+        } catch (\Exception $ex) {
             DB::rollBack();
             throw $ex;
         }
@@ -81,10 +97,11 @@ class GroupController extends Controller
 
     }
 
-    public function show($group_id){
-        return Group::with("tags")->where('id', $group_id)->get()->transform(function($group, $group_key){
+    public function show($group_id)
+    {
+        return Group::with("tags")->where('id', $group_id)->get()->transform(function ($group, $group_key) {
 
-            $group->tags->transform(function($tag, $tag_key){
+            $group->tags->transform(function ($tag, $tag_key) {
                 return $tag->name;
             });
 
@@ -92,7 +109,8 @@ class GroupController extends Controller
         })->first();
     }
 
-    public function update($group_id){
+    public function update($group_id)
+    {
         try {
             DB::beginTransaction();
             $group = Group::findOrFail($group_id);
@@ -120,7 +138,7 @@ class GroupController extends Controller
             $group->tags()->saveMany($tags);
 
             DB::commit();
-        }catch( \Exception $ex){
+        } catch (\Exception $ex) {
             DB::rollBack();
             throw $ex;
         }
@@ -131,7 +149,8 @@ class GroupController extends Controller
 
     }
 
-    public function destroy($group_id){
+    public function destroy($group_id)
+    {
         Group::destroy($group_id);
 
         return \Response::json([
@@ -139,7 +158,8 @@ class GroupController extends Controller
         ], Response::HTTP_OK, []);
     }
 
-    public function search(){
+    public function search()
+    {
 
         $name = Input::get('name');
         $tags = Input::get('tags');
@@ -147,25 +167,27 @@ class GroupController extends Controller
         $q = Group::with('tags');
 
 
-        $q = !empty($name)? $q->orWhere(function($subQuery) use ($name){
-            foreach(explode(' ', $name) as $n){
-                $subQuery->orWhere('groups.name', 'LIKE', '%'.$n.'%');
+        $q = !empty($name) ? $q->orWhere(function ($subQuery) use ($name) {
+            foreach (explode(' ', $name) as $n) {
+                $subQuery->orWhere('groups.name', 'LIKE', '%' . $n . '%');
             }
-        }): $q;
-        $q = !empty($tags)? $q->orWhere(function($subQuery){
-                $subQuery->whereHas('tags', function($query){
-                    $query->whereIn('name', explode(' ', Input::get('tags')));
-                });
-            }): $q;
+        }) : $q;
+        $q = !empty($tags) ? $q->orWhere(function ($subQuery) {
+            $subQuery->whereHas('tags', function ($query) {
+                $query->whereIn('name', explode(' ', Input::get('tags')));
+            });
+        }) : $q;
         return $q->get();
 
     }
 
-    public function users($group_id){
+    public function users($group_id)
+    {
         return Group::find($group_id)->users;
     }
 
-    public function tags($group_id){
+    public function tags($group_id)
+    {
         return Group::find($group_id)->tags;
     }
 

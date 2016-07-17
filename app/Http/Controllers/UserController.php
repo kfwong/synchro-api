@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Group;
 use App\Http\Requests;
 use App\Module;
 use App\ModuleTaken;
@@ -30,11 +31,60 @@ class UserController extends Controller
         return User::find($user_id)->groups;
     }
 
-    public function modulesTaken($user_id){
+    public function modulesTaken($user_id)
+    {
         // Laravel Eloquent Eager Loading
         // the relation model will be embedded into the result with a single call
         // https://laravel.com/docs/5.0/eloquent#eager-loading
         return User::with('modulesTaken.module')->where('id', $user_id)->first()->modulesTaken;
+    }
+
+    public function groupRecommends($user_id)
+    {
+        $currentUserModulesTaken = User::with('modulesTaken.module')
+            ->where('id', $user_id)
+            ->get()
+            ->transform(function ($user, $user_key) {
+                return $user->modulesTaken->transform(function ($moduleTaken, $moduleTaken_key) {
+                    return $moduleTaken->module->module_title;
+                });
+            })->first()->toArray();
+
+        return Group::with('users.modulesTaken.module')
+            ->get()
+            ->filter(function($group) use ($user_id){
+                $users =  $group->users;
+                $flag = true;
+                foreach($users as $user){
+                    if($user->id == $user_id){
+                        $flag = false;
+                        break;
+                    }
+                }
+                return $flag;
+            })
+            ->transform(function ($group, $group_key) use ($currentUserModulesTaken) {
+
+                $memberModuleNames = $group->users->transform(function ($user, $user_key) {
+                    return $user->modulesTaken->transform(function ($moduleTaken, $moduleTaken_key) {
+                        return $moduleTaken->module->module_title;
+                    });
+                })->flatten()->toArray();
+
+                $matchingModuleNames = array_values(array_unique(array_intersect($memberModuleNames, $currentUserModulesTaken)));
+
+                return collect([
+                    'group_id' => $group->id,
+                    'name' => $group->name,
+                    'type' => $group->type,
+                    'description' => $group->description,
+                    'date_happening' => $group->date_happening,
+                    'venue' => $group->venue,
+                    'current_logged_in_user_has_joined' => false,
+                    'matching_modules_count' => count($matchingModuleNames),
+                    'matching_modules_name' => $matchingModuleNames
+                ]);
+            })->values();
     }
 
     // return current authenticated user profile
@@ -50,9 +100,9 @@ class UserController extends Controller
     {
         $ivle_id = $request->session()->get("ivle_id");
 
-        return User::with('groups.tags')->where('ivle_id', $ivle_id)->first()->groups->transform(function($group, $group_key){
+        return User::with('groups.tags')->where('ivle_id', $ivle_id)->first()->groups->transform(function ($group, $group_key) {
 
-            $group->tags->transform(function($tag, $tag_key){
+            $group->tags->transform(function ($tag, $tag_key) {
                 return $tag->name;
             });
 
@@ -60,7 +110,8 @@ class UserController extends Controller
         });
     }
 
-    public function meJoinGroup($group_id, Request $request){
+    public function meJoinGroup($group_id, Request $request)
+    {
         $ivle_id = $request->session()->get("ivle_id");
 
         $me = User::where('ivle_id', $ivle_id)->first();
@@ -72,7 +123,8 @@ class UserController extends Controller
         ], Response::HTTP_OK, []);
     }
 
-    public function meLeaveGroup($group_id, Request $request){
+    public function meLeaveGroup($group_id, Request $request)
+    {
         $ivle_id = $request->session()->get("ivle_id");
 
         $me = User::where('ivle_id', $ivle_id)->first();
@@ -84,7 +136,8 @@ class UserController extends Controller
         ], Response::HTTP_OK, []);
     }
 
-    public function meModulesTaken(Request $request){
+    public function meModulesTaken(Request $request)
+    {
         $ivle_id = $request->session()->get("ivle_id");
 
         // Laravel Eloquent Eager Loading

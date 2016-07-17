@@ -28,6 +28,7 @@ Authorization: {Token Value}
  O | [api/v1/users](#get-apiv1users) | GET | Retrieve list of Users
  O | [api/v1/users/{user_id}](#get-apiv1usersuser_id) | GET | Retrieve a User profile
  O | [api/v1/users/{user_id}/groups](#get-apiv1usersuser_idgroups) | GET | Retrieve list of Groups a particular User belongs to
+ O | [api/v1/users/{user_id}/groups/recommends](#get-apiv1usersuser_idgroupsrecommends) | GET | Retrieve list of suggested group to that particular user with {user_id}, match by common module within each group members, excluding the one he/she already joined.
  O | [api/v1/users/{user_id}/modulesTaken](#get-apiv1usersuser_idmodulestaken) | GET | Retrieve a User's modules taken
  O | [api/v1/me](#get-apiv1me) | GET | Retrieve current authenticated User
  O | [api/v1/me/groups](#get-apiv1megroups) | GET | Retrieve list of Groups that current authenticated User belongs to
@@ -644,6 +645,445 @@ HTTP 200 OK
       "user_id": 2,
       "group_id": 21
     }
+  }
+]
+```
+
+---
+
+### GET api/v1/users/{user_id}/groups/recommends
+Retrieve list of suggested group to that particular user with {user_id}, match by common module within each group members, excluding the one he/she already joined.
+
+**Request Parameters:**
+
+URL:
+
+{user_id}: ID of the user
+
+**Response:**
+
+HTTP 200 OK
+
+eg: api/v1/users/2/groups/recommends
+```json
+[
+  {
+    "group_id": 2,
+    "name": "qui si en",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 6,
+    "matching_modules_name": [
+      "Qui repudiandae modi ipsa.",
+      "Vel rerum vero debitis eaque.",
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Fuga incidunt voluptatibus id.",
+      "Ipsum voluptatum ipsum quia.",
+      "Aut magnam perferendis alias laboriosam velit."
+    ]
+  },
+  {
+    "group_id": 3,
+    "name": "hic",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 7,
+    "matching_modules_name": [
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Ipsum voluptatum ipsum quia.",
+      "Rerum rerum incidunt in officiis recusandae tempora alias vitae.",
+      "Qui repudiandae modi ipsa.",
+      "Aut magnam perferendis alias laboriosam velit.",
+      "Vel rerum vero debitis eaque.",
+      "Fuga incidunt voluptatibus id."
+    ]
+  },
+  {
+    "group_id": 4,
+    "name": "voluptas",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 4,
+    "matching_modules_name": [
+      "Aut magnam perferendis alias laboriosam velit.",
+      "Qui repudiandae modi ipsa.",
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Vel rerum vero debitis eaque."
+    ]
+  },
+  {
+    "group_id": 5,
+    "name": "sapiente",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 5,
+    "matching_modules_name": [
+      "Ipsum voluptatum ipsum quia.",
+      "Rerum rerum incidunt in officiis recusandae tempora alias vitae.",
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Fuga incidunt voluptatibus id.",
+      "Qui repudiandae modi ipsa."
+    ]
+  },
+  {
+    "group_id": 6,
+    "name": "ut",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 5,
+    "matching_modules_name": [
+      "Aut magnam perferendis alias laboriosam velit.",
+      "Qui repudiandae modi ipsa.",
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Ipsum voluptatum ipsum quia.",
+      "Vel rerum vero debitis eaque."
+    ]
+  },
+  {
+    "group_id": 7,
+    "name": "veniam",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 4,
+    "matching_modules_name": [
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Ipsum voluptatum ipsum quia.",
+      "Fuga incidunt voluptatibus id.",
+      "Aut magnam perferendis alias laboriosam velit."
+    ]
+  },
+  {
+    "group_id": 8,
+    "name": "veniam",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 5,
+    "matching_modules_name": [
+      "Vel rerum vero debitis eaque.",
+      "Fuga incidunt voluptatibus id.",
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Ipsum voluptatum ipsum quia.",
+      "Aut magnam perferendis alias laboriosam velit."
+    ]
+  },
+  {
+    "group_id": 9,
+    "name": "harum",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 6,
+    "matching_modules_name": [
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Ipsum voluptatum ipsum quia.",
+      "Rerum rerum incidunt in officiis recusandae tempora alias vitae.",
+      "Qui repudiandae modi ipsa.",
+      "Aut magnam perferendis alias laboriosam velit.",
+      "Fuga incidunt voluptatibus id."
+    ]
+  },
+  {
+    "group_id": 10,
+    "name": "recusandae",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 7,
+    "matching_modules_name": [
+      "Ipsum voluptatum ipsum quia.",
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Fuga incidunt voluptatibus id.",
+      "Rerum rerum incidunt in officiis recusandae tempora alias vitae.",
+      "Aut magnam perferendis alias laboriosam velit.",
+      "Qui repudiandae modi ipsa.",
+      "Vel rerum vero debitis eaque."
+    ]
+  },
+  {
+    "group_id": 11,
+    "name": "dolor",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 3,
+    "matching_modules_name": [
+      "Vel rerum vero debitis eaque.",
+      "Aut magnam perferendis alias laboriosam velit.",
+      "Ipsum voluptatum ipsum quia."
+    ]
+  },
+  {
+    "group_id": 12,
+    "name": "labore",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 5,
+    "matching_modules_name": [
+      "Qui repudiandae modi ipsa.",
+      "Vel rerum vero debitis eaque.",
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Fuga incidunt voluptatibus id.",
+      "Rerum rerum incidunt in officiis recusandae tempora alias vitae."
+    ]
+  },
+  {
+    "group_id": 13,
+    "name": "dignissimos",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 1,
+    "matching_modules_name": [
+      "Qui repudiandae modi ipsa."
+    ]
+  },
+  {
+    "group_id": 14,
+    "name": "sed",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 7,
+    "matching_modules_name": [
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Ipsum voluptatum ipsum quia.",
+      "Rerum rerum incidunt in officiis recusandae tempora alias vitae.",
+      "Qui repudiandae modi ipsa.",
+      "Aut magnam perferendis alias laboriosam velit.",
+      "Vel rerum vero debitis eaque.",
+      "Fuga incidunt voluptatibus id."
+    ]
+  },
+  {
+    "group_id": 15,
+    "name": "sed",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 6,
+    "matching_modules_name": [
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Ipsum voluptatum ipsum quia.",
+      "Rerum rerum incidunt in officiis recusandae tempora alias vitae.",
+      "Qui repudiandae modi ipsa.",
+      "Aut magnam perferendis alias laboriosam velit.",
+      "Vel rerum vero debitis eaque."
+    ]
+  },
+  {
+    "group_id": 17,
+    "name": "molestias",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 3,
+    "matching_modules_name": [
+      "Ipsum voluptatum ipsum quia.",
+      "Rerum rerum incidunt in officiis recusandae tempora alias vitae.",
+      "Fuga incidunt voluptatibus id."
+    ]
+  },
+  {
+    "group_id": 19,
+    "name": "eos",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 4,
+    "matching_modules_name": [
+      "Rerum rerum incidunt in officiis recusandae tempora alias vitae.",
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Fuga incidunt voluptatibus id.",
+      "Qui repudiandae modi ipsa."
+    ]
+  },
+  {
+    "group_id": 20,
+    "name": "doloremque",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 5,
+    "matching_modules_name": [
+      "Rerum rerum incidunt in officiis recusandae tempora alias vitae.",
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Fuga incidunt voluptatibus id.",
+      "Qui repudiandae modi ipsa.",
+      "Vel rerum vero debitis eaque."
+    ]
+  },
+  {
+    "group_id": 22,
+    "name": "alias",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 5,
+    "matching_modules_name": [
+      "Qui repudiandae modi ipsa.",
+      "Vel rerum vero debitis eaque.",
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Fuga incidunt voluptatibus id.",
+      "Rerum rerum incidunt in officiis recusandae tempora alias vitae."
+    ]
+  },
+  {
+    "group_id": 23,
+    "name": "tempora",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 0,
+    "matching_modules_name": []
+  },
+  {
+    "group_id": 24,
+    "name": "molestiae",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 7,
+    "matching_modules_name": [
+      "Rerum rerum incidunt in officiis recusandae tempora alias vitae.",
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Fuga incidunt voluptatibus id.",
+      "Qui repudiandae modi ipsa.",
+      "Vel rerum vero debitis eaque.",
+      "Ipsum voluptatum ipsum quia.",
+      "Aut magnam perferendis alias laboriosam velit."
+    ]
+  },
+  {
+    "group_id": 25,
+    "name": "et",
+    "type": "",
+    "description": "",
+    "date_happening": "0000-00-00 00:00:00",
+    "venue": "",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 6,
+    "matching_modules_name": [
+      "Ipsum voluptatum ipsum quia.",
+      "Aut magnam perferendis alias laboriosam velit.",
+      "Vel rerum vero debitis eaque.",
+      "Delectus debitis nostrum adipisci aut illum commodi.",
+      "Qui repudiandae modi ipsa.",
+      "Fuga incidunt voluptatibus id."
+    ]
+  },
+  {
+    "group_id": 31,
+    "name": "My new study group test admin1",
+    "type": "study",
+    "description": "lorem ipsum",
+    "date_happening": "2016-06-10 15:04:47",
+    "venue": "soc",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 0,
+    "matching_modules_name": []
+  },
+  {
+    "group_id": 32,
+    "name": "My new study group test admin1",
+    "type": "study",
+    "description": "lorem ipsum",
+    "date_happening": "2016-06-10 15:04:47",
+    "venue": "soc",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 0,
+    "matching_modules_name": []
+  },
+  {
+    "group_id": 33,
+    "name": "My new study group",
+    "type": "study",
+    "description": "lorem ipsum",
+    "date_happening": "2016-06-10 15:04:47",
+    "venue": "soc",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 0,
+    "matching_modules_name": []
+  },
+  {
+    "group_id": 34,
+    "name": "My new study group",
+    "type": "study",
+    "description": "lorem ipsum",
+    "date_happening": "2016-06-10 15:04:47",
+    "venue": "soc",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 0,
+    "matching_modules_name": []
+  },
+  {
+    "group_id": 35,
+    "name": "My new study group",
+    "type": "study",
+    "description": "lorem ipsum",
+    "date_happening": "2016-06-10 15:04:47",
+    "venue": "soc",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 0,
+    "matching_modules_name": []
+  },
+  {
+    "group_id": 36,
+    "name": "My new study group",
+    "type": "study",
+    "description": "lorem ipsum",
+    "date_happening": "2016-06-10 15:04:47",
+    "venue": "soc",
+    "current_logged_in_user_has_joined": false,
+    "matching_modules_count": 0,
+    "matching_modules_name": []
   }
 ]
 ```
