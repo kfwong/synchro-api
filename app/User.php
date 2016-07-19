@@ -41,4 +41,8 @@ class User extends Model
         return $this->hasMany('App\ModuleTaken');
     }
 
+    public function posts(){
+        return $this->hasMany('App\Post');
+    }
+
 }

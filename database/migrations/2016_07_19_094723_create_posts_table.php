@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateGroupsTable extends Migration
+class CreatePostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,20 @@ class CreateGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('posts', function(Blueprint $table){
             $table->increments('id');
-            $table->string('name');
-            $table->string('type');
-            $table->text('description');
-            $table->dateTime('date_happening'); //yyyy-MM-dd HH:mm:ss
-            $table->string('venue');
+            $table->text("content");
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('group_id');
             $table->timestamps();
-            $table->softDeletes();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
+
+            $table->foreign('group_id')
+                ->references('id')
+                ->on('groups');
         });
     }
 
@@ -32,7 +37,7 @@ class CreateGroupsTable extends Migration
     public function down()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0'); // disable foreign key constraints
-        Schema::drop('groups');
+        Schema::drop('posts');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // enable foreign key constraints
     }
 }

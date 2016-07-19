@@ -45,6 +45,10 @@ class UserController extends Controller
         return User::with('modulesTaken.module')->where('id', $user_id)->first()->modulesTaken;
     }
 
+    public function posts($user_id){
+        return User::find($user_id)->posts;
+    }
+
     public function groupRecommends($user_id)
     {
         $currentUserModulesTaken = User::with('modulesTaken.module')

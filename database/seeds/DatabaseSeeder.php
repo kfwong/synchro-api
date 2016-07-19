@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         DB::table('group_tag')->truncate();
         DB::table('modules')->truncate();
         DB::table('modules_taken')->truncate();
+        DB::table('posts')->truncate();
 
         $this->call(UsersTableSeeder::class);
         $this->call(GroupsTableSeeder::class);
@@ -31,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GroupTagTableSeeder::class);
         $this->call(ModulesTableSeeder::class);
         $this->call(ModulesTakenTableSeeder::class);
+        $this->call(PostsTableSeeder::class);
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1'); // enable foreign key constraints
 

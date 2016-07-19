@@ -218,4 +218,8 @@ class GroupController extends Controller
         return Group::find($group_id)->tags;
     }
 
+    public function posts($group_id){
+        return Group::find($group_id)->posts;
+    }
+
 }

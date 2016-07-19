@@ -21,12 +21,14 @@ Route::group([
     Route::get('users/{id}/groups', 'UserController@groups');
     Route::get('users/{id}/groups/recommends', 'UserController@groupRecommends');
     Route::get('users/{id}/modulesTaken', 'UserController@modulesTaken');
+    Route::get('users/{id}/posts', 'UserController@posts');
 
     // groups
     Route::get('groups/search', 'GroupController@search');
     Route::resource('groups', 'GroupController', ['only' => ['index', 'store', 'show', 'update', 'destroy' ]]);
     Route::get('groups/{id}/users', 'GroupController@users');
     Route::get('groups/{id}/tags', 'GroupController@tags');
+    Route::get('groups/{id}/posts', 'GroupController@posts');
 
     // current authenticated user
     Route::group([

@@ -44,3 +44,9 @@ $factory->define(App\Module::class, function (Faker\Generator $faker){
         'module_title' => $faker->sentence
     ];
 });
+
+$factory->define(App\Post::class, function(Faker\Generator $faker){
+    return [
+        'content' => $faker->paragraph
+    ];
+});
