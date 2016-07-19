@@ -28,7 +28,13 @@ class UserController extends Controller
 
     public function groups($user_id)
     {
-        return User::find($user_id)->groups;
+        return User::find($user_id)
+            ->groups
+            ->map(function($group){
+                $group->is_admin = $group->pivot->is_admin;
+                return $group;
+            })
+            ->makeHidden('pivot');
     }
 
     public function modulesTaken($user_id)
@@ -74,7 +80,7 @@ class UserController extends Controller
                 $matchingModuleNames = array_values(array_unique(array_intersect($memberModuleNames, $currentUserModulesTaken)));
 
                 return collect([
-                    'group_id' => $group->id,
+                    'id' => $group->id,
                     'name' => $group->name,
                     'type' => $group->type,
                     'description' => $group->description,

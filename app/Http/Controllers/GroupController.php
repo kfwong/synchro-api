@@ -20,10 +20,10 @@ class GroupController extends Controller
 
         $groups = Group::with(["tags", "users"])
             ->get()
-            ->map(function($group, $group_key) use ($ivle_id){
-                $users =  $group->users;
-                foreach($users as $user){
-                    if($user->ivle_id == $ivle_id){
+            ->map(function ($group, $group_key) use ($ivle_id) {
+                $users = $group->users;
+                foreach ($users as $user) {
+                    if ($user->ivle_id == $ivle_id) {
                         $group->current_logged_in_user_has_joined = true;
                         return $group;
                     }
@@ -39,6 +39,7 @@ class GroupController extends Controller
                 return $group;
             })
             ->values()
+            ->makeHidden('users')
             ->all();
 
         return $groups;
@@ -97,16 +98,34 @@ class GroupController extends Controller
 
     }
 
-    public function show($group_id)
+    public function show(Request $request, $group_id)
     {
-        return Group::with("tags")->where('id', $group_id)->get()->transform(function ($group, $group_key) {
+        $ivle_id = $request->session()->get("ivle_id");
 
-            $group->tags->transform(function ($tag, $tag_key) {
-                return $tag->name;
-            });
+        return Group::with("tags", "users")
+            ->where('id', $group_id)
+            ->get()
+            ->map(function($group) use ($ivle_id){
+                $users = $group->users;
+                foreach($users as $user){
+                    if($user->ivle_id == $ivle_id){
+                        $group->is_admin = $user->pivot->is_admin;
+                        return $group;
+                    }
+                }
 
-            return $group;
-        })->first();
+                $group->is_admin = 0;
+                return $group;
+            })
+            ->transform(function ($group, $group_key) {
+                $group->tags->transform(function ($tag, $tag_key) {
+                    return $tag->name;
+                });
+
+                return $group;
+            })
+            ->makeHidden('users')
+            ->first();
     }
 
     public function update($group_id)
