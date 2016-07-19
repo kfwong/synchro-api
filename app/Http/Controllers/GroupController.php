@@ -196,7 +196,15 @@ class GroupController extends Controller
                 $query->whereIn('name', explode(' ', Input::get('tags')));
             });
         }) : $q;
-        return $q->get();
+        return $q
+            ->get()
+            ->transform(function ($group, $group_key) {
+                $group->tags->transform(function ($tag, $tag_key) {
+                    return $tag->name;
+                });
+
+                return $group;
+            });
 
     }
 
