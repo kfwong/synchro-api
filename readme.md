@@ -33,7 +33,7 @@ Authorization: {Token Value}
  O | [api/v1/users/{user_id}/modulesTaken](#get-apiv1usersuser_idmodulestaken) | GET | Retrieve a User's modules taken
  O | [api/v1/users/{user_id}/posts](#get-apiv1usersuser_idposts) | GET | Retrieve a posts belongs to a user
  O | [api/v1/posts](#post-apiv1posts) | POST | Create a new Post
- O | [api/v1/posts/{post_id}](#get-apiv1postspost_id) | POST | Retrieve a post by post_id
+ O | [api/v1/posts/{post_id}](#get-apiv1postspost_id) | GET | Retrieve a post by post_id
  O | [api/v1/me](#get-apiv1me) | GET | Retrieve current authenticated User
  O | [api/v1/me/groups](#get-apiv1megroups) | GET | Retrieve list of Groups that current authenticated User belongs to
  O | [api/v1/me/groups/{group_id}/join](#post-apiv1megroupsgroup_idjoin) | POST | Current User join an existing group.
