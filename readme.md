@@ -19,21 +19,26 @@ Authorization: {Token Value}
 --------|----------|-------------|-------------|
  O | [api/v1/groups](#get-apiv1groups) | GET | Retrieve list of available Groups
  O | [api/v1/groups](#post-apiv1groups) | POST | Create a new Group
- O | [api/v1/groups/{group_id}](#get-apiv1groupsgroups_id) | GET | Retrieve a Group by id
- X | [api/v1/groups/{group_id}](#put-apiv1groupsgroups_id) | PUT | Update a Group by id
- O | [api/v1/groups/{group_id}](#delete-apiv1groupsgroups_id) | DELETE | Delete a Group by id (soft delete)
- O | [api/v1/groups/{group_id}/users](#get-apiv1groupsgroups_idusers) | GET | Retrieve all users belongs to a specific Group
- X | [api/v1/groups/{group_id}/tags](#get-apiv1groupsgroups_idtags) | GET | Retrieve all tags belongs to a specific Group
+ O | [api/v1/groups/{group_id}](#get-apiv1groupsgroup_id) | GET | Retrieve a Group by id
+ X | [api/v1/groups/{group_id}](#put-apiv1groupsgroup_id) | PUT | Update a Group by id
+ O | [api/v1/groups/{group_id}](#delete-apiv1groupsgroup_id) | DELETE | Delete a Group by id (soft delete)
+ O | [api/v1/groups/{group_id}/posts](#get-apiv1groupsgroup_idposts) | GET | Retrieve all posts belongs to a specific Group
+ O | [api/v1/groups/{group_id}/users](#get-apiv1groupsgroup_idusers) | GET | Retrieve all users belongs to a specific Group
+ X | [api/v1/groups/{group_id}/tags](#get-apiv1groupsgroup_idtags) | GET | Retrieve all tags belongs to a specific Group
  O | [api/v1/groups/search?{name&#124;tags}](#get-apiv1groupssearchnametags) | GET | Search group by name or tags
  O | [api/v1/users](#get-apiv1users) | GET | Retrieve list of Users
  O | [api/v1/users/{user_id}](#get-apiv1usersuser_id) | GET | Retrieve a User profile
  O | [api/v1/users/{user_id}/groups](#get-apiv1usersuser_idgroups) | GET | Retrieve list of Groups a particular User belongs to
  O | [api/v1/users/{user_id}/groups/recommends](#get-apiv1usersuser_idgroupsrecommends) | GET | Retrieve list of suggested group to that particular user with {user_id}, match by common module within each group members, excluding the one he/she already joined.
  O | [api/v1/users/{user_id}/modulesTaken](#get-apiv1usersuser_idmodulestaken) | GET | Retrieve a User's modules taken
+ O | [api/v1/users/{user_id}/posts](#get-apiv1usersuser_idposts) | GET | Retrieve a posts belongs to a user
+ O | [api/v1/posts](#post-apiv1posts) | POST | Create a new Post
+ O | [api/v1/posts/{post_id}](#get-apiv1postspost_id) | POST | Retrieve a post by post_id
  O | [api/v1/me](#get-apiv1me) | GET | Retrieve current authenticated User
  O | [api/v1/me/groups](#get-apiv1megroups) | GET | Retrieve list of Groups that current authenticated User belongs to
  O | [api/v1/me/groups/{group_id}/join](#post-apiv1megroupsgroup_idjoin) | POST | Current User join an existing group.
  O | [api/v1/me/groups/{group_id}/leave](#post-apiv1megroupsgroup_idleave) | POST | Current User leave an existing group.
+ O | [api/v1/me/posts](#get-apiv1meposts) | GET | Retrieve posts belongs to the current authenticated User
  O | [api/v1/me/modulesTaken](#get-apiv1memodulestaken) | GET | Retrieve list of Modules that current authenticated User has taken
  O | [api/v1/me/resync](#get-apiv1meresync) | GET | Resynchronize & cache current user info from IVLE
 
@@ -182,6 +187,105 @@ HTTP 200 OK
 {
   "message": "Group 2 has been deleted."
 }
+```
+
+---
+
+### GET api/v1/groups/{group_id}/posts
+Retrieve all posts belongs to a specific Group
+
+**Request Parameters:**
+
+URL:
+
+{group_id}: ID of the group.
+
+**Response:**
+
+HTTP 200 OK
+```json
+[
+  {
+    "id": 11,
+    "content": "Ut quos aut tempore rerum ullam quia. Nam rerum ad voluptatem rerum in temporibus. Ipsam alias eveniet et consequuntur accusamus.",
+    "user_id": 2,
+    "group_id": 2,
+    "created_at": "2016-07-19 11:11:05",
+    "updated_at": "2016-07-19 11:11:05"
+  },
+  {
+    "id": 19,
+    "content": "Nisi laboriosam doloremque dolor sed qui mollitia. Illum eum in qui deserunt. Ut inventore aperiam in natus cupiditate sed ut. Eos totam suscipit atque dolorem.",
+    "user_id": 15,
+    "group_id": 2,
+    "created_at": "2016-07-19 11:11:05",
+    "updated_at": "2016-07-19 11:11:05"
+  },
+  {
+    "id": 35,
+    "content": "Est qui ex quos nostrum unde. Vel natus eum itaque ipsam iusto incidunt. Molestias fugit laudantium necessitatibus ut. Velit voluptas eum reprehenderit et neque.",
+    "user_id": 8,
+    "group_id": 2,
+    "created_at": "2016-07-19 11:11:06",
+    "updated_at": "2016-07-19 11:11:06"
+  },
+  {
+    "id": 50,
+    "content": "Tempora non qui voluptatem necessitatibus facilis aspernatur officia. Expedita dolorem corrupti id consequatur. Non voluptatem omnis qui eum.",
+    "user_id": 7,
+    "group_id": 2,
+    "created_at": "2016-07-19 11:11:07",
+    "updated_at": "2016-07-19 11:11:07"
+  },
+  {
+    "id": 93,
+    "content": "Necessitatibus nobis atque iste aliquid eaque. Vitae ut sint unde cumque dolorem saepe. Est dolor deserunt dolorem non. Velit id doloribus eius dolores qui aut nulla.",
+    "user_id": 11,
+    "group_id": 2,
+    "created_at": "2016-07-19 11:11:10",
+    "updated_at": "2016-07-19 11:11:10"
+  },
+  {
+    "id": 97,
+    "content": "Non quae enim sit qui. Sed sit est facere nihil possimus. Quas atque eaque perferendis autem. Maiores voluptates nesciunt praesentium eaque adipisci beatae molestias eaque.",
+    "user_id": 15,
+    "group_id": 2,
+    "created_at": "2016-07-19 11:11:10",
+    "updated_at": "2016-07-19 11:11:10"
+  },
+  {
+    "id": 101,
+    "content": "lorem ipsum dollar sit amet.",
+    "user_id": 16,
+    "group_id": 2,
+    "created_at": "2016-07-20 20:11:36",
+    "updated_at": "2016-07-20 20:11:36"
+  },
+  {
+    "id": 102,
+    "content": "lorem ipsum dollar sit amet.",
+    "user_id": 16,
+    "group_id": 2,
+    "created_at": "2016-07-20 20:11:37",
+    "updated_at": "2016-07-20 20:11:37"
+  },
+  {
+    "id": 103,
+    "content": "lorem ipsum dollar sit amet.",
+    "user_id": 16,
+    "group_id": 2,
+    "created_at": "2016-07-20 20:12:04",
+    "updated_at": "2016-07-20 20:12:04"
+  },
+  {
+    "id": 104,
+    "content": "lorem ipsum dollar sit amet.",
+    "user_id": 16,
+    "group_id": 2,
+    "created_at": "2016-07-20 20:12:04",
+    "updated_at": "2016-07-20 20:12:04"
+  }
+]
 ```
 
 ---
@@ -1186,6 +1290,129 @@ HTTP 200 OK
 
 ---
 
+### GET api/v1/users/{user_id}/posts
+Retrieve posts belongs to a user by user_id
+
+**Request Parameters:**
+
+URL:
+
+{user_id}: ID of the user
+
+**Response:**
+
+HTTP 200 OK
+```json
+[
+  {
+    "id": 10,
+    "content": "Eos illo itaque iusto doloremque. Cumque cupiditate error voluptatibus dolorem similique aut reiciendis. Fugit cupiditate est voluptatum non et hic. Fuga aut laborum ut eveniet vel quis.",
+    "user_id": 3,
+    "group_id": 20,
+    "created_at": "2016-07-19 11:11:05",
+    "updated_at": "2016-07-19 11:11:05"
+  },
+  {
+    "id": 17,
+    "content": "Nostrum sed a ullam possimus aut. Quis architecto necessitatibus molestias dolor error. Eaque neque voluptatem odio ipsa. Ipsum non sit et harum. Sed exercitationem eveniet id sit ut saepe ut.",
+    "user_id": 3,
+    "group_id": 16,
+    "created_at": "2016-07-19 11:11:05",
+    "updated_at": "2016-07-19 11:11:05"
+  },
+  {
+    "id": 26,
+    "content": "Nulla labore non nulla magni. Ad labore sed et. Maiores tempore blanditiis quidem consectetur. Id deserunt consectetur illum fugiat quis fuga doloribus quisquam.",
+    "user_id": 3,
+    "group_id": 25,
+    "created_at": "2016-07-19 11:11:05",
+    "updated_at": "2016-07-19 11:11:05"
+  },
+  {
+    "id": 41,
+    "content": "Aperiam dolorem ex et non placeat impedit. Aperiam laborum doloribus quibusdam reiciendis dignissimos sint praesentium. Quam porro dolores officiis dolor porro.",
+    "user_id": 3,
+    "group_id": 3,
+    "created_at": "2016-07-19 11:11:06",
+    "updated_at": "2016-07-19 11:11:06"
+  },
+  {
+    "id": 47,
+    "content": "Veniam vel molestiae et occaecati nulla labore. Ut facilis laboriosam voluptatem consequatur error nihil sunt. Architecto impedit qui culpa beatae debitis. Omnis est ducimus molestiae.",
+    "user_id": 3,
+    "group_id": 19,
+    "created_at": "2016-07-19 11:11:07",
+    "updated_at": "2016-07-19 11:11:07"
+  },
+  {
+    "id": 48,
+    "content": "Incidunt iure ut vero et dolores quos. Rerum et velit cumque beatae optio. Illum nam ut incidunt sed porro suscipit earum. Harum provident qui molestiae libero numquam dicta quibusdam.",
+    "user_id": 3,
+    "group_id": 24,
+    "created_at": "2016-07-19 11:11:07",
+    "updated_at": "2016-07-19 11:11:07"
+  },
+  {
+    "id": 83,
+    "content": "Et quidem at dicta rerum rem ea ut atque. Est beatae omnis est architecto. Exercitationem tempore repudiandae quos magni aspernatur velit unde est.",
+    "user_id": 3,
+    "group_id": 24,
+    "created_at": "2016-07-19 11:11:09",
+    "updated_at": "2016-07-19 11:11:09"
+  }
+]
+```
+---
+
+### POST api/v1/posts
+Create a new Post
+
+**Request Parameters:**
+
+Body:
+
+```json
+{
+"group_id": 2,
+"content": "lorem ipsum dollar sit amet."
+}
+```
+
+**Response:**
+
+HTTP 201 CREATED
+```json
+{
+  "message": "Post for Group 2 created."
+  "id": 2
+}
+```
+
+---
+
+### GET api/v1/posts/{post_id}
+Retrieve a post by post_id
+
+**Request Parameters:**
+
+{post_id}: Post's ID
+
+**Response:**
+
+HTTP 200 OK
+```json
+{
+  "id": 2,
+  "content": "Voluptas veritatis est aut aut dolore ducimus incidunt. Sunt dicta sapiente corrupti est consectetur quisquam. In nihil beatae ea et. Ex exercitationem eos fugit est est nobis.",
+  "user_id": 14,
+  "group_id": 12,
+  "created_at": "2016-07-19 11:11:04",
+  "updated_at": "2016-07-19 11:11:04"
+}
+```
+
+---
+
 ### GET api/v1/me
 Retrieve current authenticated User
 
@@ -1312,6 +1539,54 @@ HTTP 200 OK
 {
   "message": "User 1 leave group 3"
 }
+```
+
+---
+
+### GET api/v1/me/posts
+Retrieve posts belongs to the current authenticated User has taken
+
+**Request Parameters:**
+None
+
+**Response:**
+
+HTTP 200 OK
+```json
+[
+  {
+    "id": 101,
+    "content": "lorem ipsum dollar sit amet.",
+    "user_id": 16,
+    "group_id": 2,
+    "created_at": "2016-07-20 20:11:36",
+    "updated_at": "2016-07-20 20:11:36"
+  },
+  {
+    "id": 102,
+    "content": "lorem ipsum dollar sit amet.",
+    "user_id": 16,
+    "group_id": 2,
+    "created_at": "2016-07-20 20:11:37",
+    "updated_at": "2016-07-20 20:11:37"
+  },
+  {
+    "id": 103,
+    "content": "lorem ipsum dollar sit amet.",
+    "user_id": 16,
+    "group_id": 2,
+    "created_at": "2016-07-20 20:12:04",
+    "updated_at": "2016-07-20 20:12:04"
+  },
+  {
+    "id": 104,
+    "content": "lorem ipsum dollar sit amet.",
+    "user_id": 16,
+    "group_id": 2,
+    "created_at": "2016-07-20 20:12:04",
+    "updated_at": "2016-07-20 20:12:04"
+  }
+]
 ```
 
 ---

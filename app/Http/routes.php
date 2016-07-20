@@ -30,6 +30,9 @@ Route::group([
     Route::get('groups/{id}/tags', 'GroupController@tags');
     Route::get('groups/{id}/posts', 'GroupController@posts');
 
+    // posts
+    Route::resource('posts', 'PostController', ['only' => ['show', 'store']]);
+
     // current authenticated user
     Route::group([
         'prefix' => '/me',
@@ -38,6 +41,7 @@ Route::group([
         Route::get('groups', 'UserController@meGroups');
         Route::post('groups/{id}/join', 'UserController@meJoinGroup');
         Route::post('groups/{id}/leave', 'UserController@meLeaveGroup');
+        Route::get('posts', 'UserController@mePosts');
         Route::get('modulesTaken', 'UserController@meModulesTaken');
         Route::get('resync', 'UserController@meResync');
     });

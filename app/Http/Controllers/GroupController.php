@@ -24,11 +24,11 @@ class GroupController extends Controller
                 $users = $group->users;
                 foreach ($users as $user) {
                     if ($user->ivle_id == $ivle_id) {
-                        $group->current_logged_in_user_has_joined = true;
+                        $group->is_member = true;
                         return $group;
                     }
                 }
-                $group->current_logged_in_user_has_joined = false;
+                $group->is_member = false;
                 return $group;
             })
             ->transform(function ($group, $group_key) {
@@ -115,6 +115,17 @@ class GroupController extends Controller
                 }
 
                 $group->is_admin = 0;
+                return $group;
+            })
+            ->map(function ($group, $group_key) use ($ivle_id) {
+                $users = $group->users;
+                foreach ($users as $user) {
+                    if ($user->ivle_id == $ivle_id) {
+                        $group->is_member = true;
+                        return $group;
+                    }
+                }
+                $group->is_member = false;
                 return $group;
             })
             ->transform(function ($group, $group_key) {

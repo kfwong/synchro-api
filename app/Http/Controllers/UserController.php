@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Module;
 use App\ModuleTaken;
 use App\User;
+use App\Post;
 use Carbon\Carbon;
 use DB;
 use GuzzleHttp\Client;
@@ -126,7 +127,10 @@ class UserController extends Controller
 
         $me = User::where('ivle_id', $ivle_id)->first();
 
-        $me->groups()->attach($group_id);
+        $me->groups()->attach($group_id, [
+            'is_admin' => true
+        ]);
+
 
         return \Response::json([
             'message' => 'User ' . $ivle_id . ' joined group ' . $group_id
@@ -144,6 +148,14 @@ class UserController extends Controller
         return \Response::json([
             'message' => 'User ' . $ivle_id . ' left group ' . $group_id
         ], Response::HTTP_OK, []);
+    }
+
+    public function mePosts(Request $request){
+        $ivle_id = $request->session()->get("ivle_id");
+
+        $me = User::where('ivle_id', $ivle_id)->first();
+
+        return Post::where('user_id', $me->id)->get();
     }
 
     public function meModulesTaken(Request $request)
