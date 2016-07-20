@@ -91,7 +91,7 @@ class UserController extends Controller
                     'description' => $group->description,
                     'date_happening' => $group->date_happening,
                     'venue' => $group->venue,
-                    'current_logged_in_user_has_joined' => false,
+                    'is_member' => false,
                     'matching_modules_count' => count($matchingModuleNames),
                     'matching_modules_name' => $matchingModuleNames
                 ]);
