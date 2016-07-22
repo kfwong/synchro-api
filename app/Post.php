@@ -14,11 +14,11 @@ class Post extends Model
         return $this->belongsTo('group');
     }
 
-    public function getCreatedAtAtrribute($value){
+    public function getCreatedAtAttribute($value){
         return $value->timezone('Asia/Singapore')->toDateTimeString();
     }
 
-    public function getUpdatedAtAtrribute($value){
+    public function getUpdatedAtAttribute($value){
         return $value->timezone('Asia/Singapore')->toDateTimeString();
     }
 }

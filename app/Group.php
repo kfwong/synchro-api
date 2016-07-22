@@ -39,11 +39,11 @@ class Group extends Model
         return $this->hasMany('App\Post');
     }
 
-    public function getCreatedAtAtrribute($value){
+    public function getCreatedAtAttribute($value){
         return $value->timezone('Asia/Singapore')->toDateTimeString();
     }
 
-    public function getUpdatedAtAtrribute($value){
+    public function getUpdatedAtAttribute($value){
         return $value->timezone('Asia/Singapore')->toDateTimeString();
     }
 }
