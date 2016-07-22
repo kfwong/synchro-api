@@ -235,7 +235,7 @@ class GroupController extends Controller
     }
 
     public function posts($group_id){
-        return DB::table('posts')
+        $result = DB::table('posts')
             ->join('users', 'users.id', '=', 'posts.user_id')
             ->select([
                 'posts.id',
@@ -248,6 +248,11 @@ class GroupController extends Controller
             ])
             ->where('group_id', $group_id)
             ->get();
+
+        return array_map(function($group){
+            $group->name = ucwords(strtolower($group->name));
+            return $group;
+        }, $result);
 
 
         //return Group::find($group_id)->posts;
