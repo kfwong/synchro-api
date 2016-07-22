@@ -1479,7 +1479,7 @@ Body:
 
 ```json
 {
-  "intro": "omg wtf bbq jazlyn so awsome!!!"
+  "intro": "omg wtf bbq so awsome!!!"
 }
 ```
 
