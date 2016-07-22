@@ -9,11 +9,25 @@ use App\Post;
 use App\User;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Response;
+use DB;
 
 class PostController extends Controller
 {
     public function show($post_id){
-        return Post::find($post_id);
+        return DB::table('posts')
+            ->join('users', 'users.id', '=', 'posts.id')
+            ->select([
+                'posts.id',
+                'posts.content',
+                'posts.user_id',
+                'posts.group_id',
+                'posts.created_at',
+                'posts.updated_at',
+                'users.name'
+            ])
+            ->where('posts.id', $post_id)
+            ->get();
+        //return Post::find($post_id);
     }
 
     public function store(Request $request){

@@ -13,6 +13,7 @@ class User extends Model
      */
     protected $fillable = [
         'name',
+        'intro',
         'ivle_id',
         'email',
         'gender',

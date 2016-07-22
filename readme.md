@@ -20,7 +20,7 @@ Authorization: {Token Value}
  O | [api/v1/groups](#get-apiv1groups) | GET | Retrieve list of available Groups
  O | [api/v1/groups](#post-apiv1groups) | POST | Create a new Group
  O | [api/v1/groups/{group_id}](#get-apiv1groupsgroup_id) | GET | Retrieve a Group by id
- X | [api/v1/groups/{group_id}](#put-apiv1groupsgroup_id) | PUT | Update a Group by id
+ O | [api/v1/groups/{group_id}](#put-apiv1groupsgroup_id) | PUT | Update a Group by id
  O | [api/v1/groups/{group_id}](#delete-apiv1groupsgroup_id) | DELETE | Delete a Group by id (soft delete)
  O | [api/v1/groups/{group_id}/posts](#get-apiv1groupsgroup_idposts) | GET | Retrieve all posts belongs to a specific Group
  O | [api/v1/groups/{group_id}/users](#get-apiv1groupsgroup_idusers) | GET | Retrieve all users belongs to a specific Group
@@ -35,6 +35,7 @@ Authorization: {Token Value}
  O | [api/v1/posts](#post-apiv1posts) | POST | Create a new Post
  O | [api/v1/posts/{post_id}](#get-apiv1postspost_id) | GET | Retrieve a post by post_id
  O | [api/v1/me](#get-apiv1me) | GET | Retrieve current authenticated User
+ O | [api/v1/me](#put-apiv1me) | PUT | Update current authenticated User
  O | [api/v1/me/groups](#get-apiv1megroups) | GET | Retrieve list of Groups that current authenticated User belongs to
  O | [api/v1/me/groups/{group_id}/join](#post-apiv1megroupsgroup_idjoin) | POST | Current User join an existing group.
  O | [api/v1/me/groups/{group_id}/leave](#post-apiv1megroupsgroup_idleave) | POST | Current User leave an existing group.
@@ -167,7 +168,34 @@ HTTP 200 OK
 ### PUT api/v1/groups/{group_id}
 Update a Group by id
 
-//TODO: to be updated
+**Request Parameters:**
+
+URL:
+
+{group_id}: ID of the group.
+
+Body:
+
+```json
+{
+"name" : "updated1",
+"type": "updated2",
+"description": "updated3",
+"date_happening": "1991-07-06 13:23:45",
+"venue": "soc",
+"tags": "tag1 tag2 tag3"
+}
+```
+
+**Response:**
+
+HTTP 200 OK
+
+```json
+{
+  "message": "Group updated."
+}
+```
 
 ---
 
@@ -1439,6 +1467,31 @@ HTTP 200 OK
   "updated_at": "2016-07-12 15:37:43"
 }
 ```
+
+---
+
+### PUT api/v1/me
+Retrieve current authenticated User
+
+**Request Parameters:**
+
+Body:
+
+```json
+{
+  "intro": "omg wtf bbq jazlyn so awsome!!!"
+}
+```
+
+**Response:**
+
+HTTP 200 OK
+```json
+{
+  "message": "User updated."
+}
+```
+
 
 ---
 

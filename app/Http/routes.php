@@ -38,6 +38,7 @@ Route::group([
         'prefix' => '/me',
     ], function(){
         Route::get('/', 'UserController@me');
+        Route::put('/', 'UserController@meUpdate');
         Route::get('groups', 'UserController@meGroups');
         Route::post('groups/{id}/join', 'UserController@meJoinGroup');
         Route::post('groups/{id}/leave', 'UserController@meLeaveGroup');

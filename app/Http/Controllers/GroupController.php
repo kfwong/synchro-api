@@ -139,13 +139,18 @@ class GroupController extends Controller
             ->first();
     }
 
-    public function update($group_id)
+    public function update(Request $request, $group_id)
     {
         try {
             DB::beginTransaction();
             $group = Group::findOrFail($group_id);
 
-            $group->name = Input::get('name');
+            $group->name = $request->name;
+            $group->type = $request->type;
+            $group->description = $request->description;
+            $group->date_happening = $request->date_happening;
+            $group->venue = $request->venue;
+            $group->updated_at = Carbon::now();
 
             $group->save();
 
@@ -230,7 +235,22 @@ class GroupController extends Controller
     }
 
     public function posts($group_id){
-        return Group::find($group_id)->posts;
+        return DB::table('posts')
+            ->join('users', 'users.id', '=', 'posts.id')
+            ->select([
+                'posts.id',
+                'posts.content',
+                'posts.user_id',
+                'posts.group_id',
+                'posts.created_at',
+                'posts.updated_at',
+                'users.name'
+            ])
+            ->where('group_id', $group_id)
+            ->get();
+
+
+        //return Group::find($group_id)->posts;
     }
 
 }

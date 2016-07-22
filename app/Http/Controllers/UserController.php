@@ -13,6 +13,7 @@ use DB;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Input;
 
 
 class UserController extends Controller
@@ -25,6 +26,21 @@ class UserController extends Controller
     public function show($user_id)
     {
         return User::find($user_id);
+    }
+
+    public function meUpdate(Request $request){
+
+        $ivle_id = $request->session()->get("ivle_id");
+
+        $user = User::where('ivle_id', $ivle_id)->first();
+
+        $user->intro = $request->intro;
+
+        $user->save();
+
+        return \Response::json([
+            'message' => 'User updated.'
+        ], Response::HTTP_OK, []);
     }
 
     public function groups($user_id)

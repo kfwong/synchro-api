@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('ivle_id');
             $table->string('name');
+            $table->text('intro');
             $table->string('email')->unique();
             $table->string('gender');
             $table->string('faculty');
