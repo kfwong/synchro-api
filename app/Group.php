@@ -38,4 +38,12 @@ class Group extends Model
     public function posts(){
         return $this->hasMany('App\Post');
     }
+
+    public function getCreatedAtAtrribute($value){
+        return $value->timezone('Asia/Singapore')->toDateTimeString();
+    }
+
+    public function getUpdatedAtAtrribute($value){
+        return $value->timezone('Asia/Singapore')->toDateTimeString();
+    }
 }
