@@ -15,10 +15,10 @@ class Post extends Model
     }
 
     public function getCreatedAtAttribute($value){
-        return $value->timezone('Asia/Singapore')->toDateTimeString();
+        return Carbon::parse($value)->timezone('Asia/Singapore')->toDateTimeString();
     }
 
     public function getUpdatedAtAttribute($value){
-        return $value->timezone('Asia/Singapore')->toDateTimeString();
+        return Carbon::parse($value)->timezone('Asia/Singapore')->toDateTimeString();
     }
 }
