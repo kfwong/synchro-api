@@ -46,4 +46,8 @@ class User extends Model
         return $this->hasMany('App\Post');
     }
 
+    public function getNameAttribute($value){
+        return ucwords(strtolower($value));
+    }
+
 }
