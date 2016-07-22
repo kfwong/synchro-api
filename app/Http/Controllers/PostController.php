@@ -14,8 +14,9 @@ use DB;
 class PostController extends Controller
 {
     public function show($post_id){
+
         return DB::table('posts')
-            ->join('users', 'users.id', '=', 'posts.id')
+            ->join('users', 'users.id', '=', 'posts.user_id')
             ->select([
                 'posts.id',
                 'posts.content',
@@ -27,6 +28,7 @@ class PostController extends Controller
             ])
             ->where('posts.id', $post_id)
             ->get();
+
         //return Post::find($post_id);
     }
 

@@ -236,7 +236,7 @@ class GroupController extends Controller
 
     public function posts($group_id){
         return DB::table('posts')
-            ->join('users', 'users.id', '=', 'posts.id')
+            ->join('users', 'users.id', '=', 'posts.user_id')
             ->select([
                 'posts.id',
                 'posts.content',
