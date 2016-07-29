@@ -39,7 +39,7 @@ class User extends Model
     }
 
     public function modulesTaken(){
-        return $this->hasMany('App\ModuleTaken');
+        return $this->hasMany('App\ModuleTaken')->orderBy('year_taken');
     }
 
     public function posts(){
